@@ -16,6 +16,8 @@ import java.sql.*;
 		      c.setAutoCommit(false);
 		      System.out.println("Opened database successfully");
 
+		    //  PreparedStatement stmt = c.prepareStatement();
+		      
 		      stmt = c.createStatement();
 		      String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
 		                   "VALUES (id, 'Paul', 32, 'California', 20000.00 );"; 
