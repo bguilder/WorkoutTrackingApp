@@ -2,33 +2,47 @@ package health;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Database {
 
-private Connection con;
-
 public void connect() throws Exception{
 
-    if(con != null) return;
-
+	Connection c = null;
+    Statement stmt = null;
     try {
-        Class.forName("com.mysql.jdbc.Driver");
-    } catch (ClassNotFoundException e) {
-        throw new Exception("No database");
+      Class.forName("org.sqlite.JDBC");
+      c = DriverManager.getConnection("jdbc:sqlite:test.db");
+      c.setAutoCommit(false);
+      System.out.println("Opened database successfully");
+
+    //  PreparedStatement stmt = c.prepareStatement();
+      
+      
+      stmt = c.createStatement();
+      String sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+                   "VALUES (15, 'Paul', 32, 'California', 20000.00 );"; 
+      stmt.executeUpdate(sql);
+
+      sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+            "VALUES (16, 'Allen', 25, 'Texas', 15000.00 );"; 
+      stmt.executeUpdate(sql);
+
+      sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+            "VALUES (136, 'Teddy', 23, 'Norway', 20000.00 );"; 
+      stmt.executeUpdate(sql);
+
+      sql = "INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) " +
+            "VALUES (125, 'Mark', 25, 'Rich-Mond ', 65000.00 );"; 
+      stmt.executeUpdate(sql);
+
+      stmt.close();
+      c.commit();
+      c.close();
+    } catch ( Exception e ) {
+      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      System.exit(0);
     }
-
-    String connectionURL = "jdbc:mysql://localhost:3306/Peoples";
-
-    con = DriverManager.getConnection(connectionURL, "root", "milos23");        
-}
-
-public void close(){
-    if(con != null){
-        try {
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
+    System.out.println("Records created successfully");
+  }
 }

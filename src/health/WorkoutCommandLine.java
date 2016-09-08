@@ -7,32 +7,24 @@ public class WorkoutCommandLine {
 	private static Scanner scanner = new Scanner(System.in);
 	private static boolean exitProgram = false;
 	@SuppressWarnings("unused")
-	private static WorkoutController controller;
+	private static WorkoutController controller = new WorkoutController();
 	
 	public void commandLoop(){
 	while(exitProgram == false){
 		
-		System.out.println("What workout did u do?\n"
-							+ "1. Chest\n"
-							+ "2. Back\n"
-							+ "3. Arms\n"
-							+ "4. Legs\n"
-							+ "5. Cardio\n");
-						
-		int userSelection = scanner.nextInt();
+		System.out.println("What was the name of the exercise?");										
+		String exerciseName = scanner.nextLine();
+		System.out.println("How many sets?");
+		int sets = scanner.nextInt();
+		for(int n=1; n <= sets; n++){			
+		System.out.println("Weight of" + n + "set");
+		int weight = scanner.nextInt();
+		System.out.println("Reps of" + n + "set");
+		int reps = scanner.nextInt();
+		controller.setSets(reps, weight);
+		}
 		
-		switch(userSelection){
-		
-		case 1:  
-			System.out.println("What workouts did you do?");
-			
-			break;
-		case 2:  
-			System.out.println("What workouts did you poo?");
-			
-			break;
-		
-		}	
+	
 	}
 	}
 }
