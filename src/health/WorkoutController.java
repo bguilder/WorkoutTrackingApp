@@ -1,22 +1,30 @@
 package health;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 
 
 public class WorkoutController {
 	
-	WorkoutNumberGenerator workoutNum = new WorkoutNumberGenerator();
-	LinkedList<Exercise> workout = new LinkedList<Exercise>();
+	WorkoutNumberGenerator exerciseID = new WorkoutNumberGenerator();
+	HashMap<Integer,Exercise> workoutList = new HashMap<Integer, Exercise>();
 	
-	public void addExercise(String name, int[] sets, int reps, int weight){
-		
+	public void addExercise(String name, Integer[] sets){	
+		 int id = exerciseID.generateID();
+		 Exercise exercise = new Exercise(name,sets,id);
+		 workoutList.put(id, exercise);
 	}
 	
-	public void viewWorkout(){
-		
+	public void addExercise(String name){
+		int id = exerciseID.generateID();
+		 Exercise exercise = new Exercise(name,id);
+		 workoutList.put(id, exercise);
 	}
 	
-	public void setSets(int reps, int weight){
-		
+	public void addSet(int reps, int weight, int exerciseID){
+		workoutList.get(exerciseID);
+	}
+	public Exercise getExercise(int exerciseID){
+		Exercise red = workoutList.get(exerciseID);
+		return red;
 	}
 }
