@@ -8,7 +8,7 @@ public class Exercise {
 	int reps;
 	int weight;
 	int exerciseID;
-	Integer[]set = new Integer[2];
+	Integer[]set = new Integer[2];//store each set in an array
 	LinkedList<Integer[]> totalSets = new LinkedList<Integer[]>(); //ArrayList of the total sets with reps and weight
 
 	public Exercise(){	
@@ -53,23 +53,31 @@ public class Exercise {
 		this.reps = reps;
 	}
 	
-	public void printSets(){
-		Integer[]gg = new Integer[2];
-		
+	public StringBuilder printSets(){
+		//array to store each set in
+		Integer[]x = new Integer[2];
+		StringBuilder string = new StringBuilder();
+		//get each set[]
 		for(int n=0; n<totalSets.size(); n++){
-
-			gg = totalSets.get(n);			
-			for(int x=0;x<gg.length;x++){
-				System.out.print(gg[x] + " ");
-			}
-			System.out.println();
+			x = totalSets.get(n);	
+			//print out the set array
+			for(int i=0;i<x.length;i++){
+				if(i==0){
+					string.append("Reps: " + x[i] + " ");
+				}
+				else if(i==1){
+					string.append("Weight: " + x[i] + " ");
+				}			
+			}		
 		}
-	
+	return string;
 	}
 
-	@Override
-	public String toString(){
-		return "Exercise Name: " + getName()  ;
+	public StringBuilder printExercise(){
+		StringBuilder string = new StringBuilder();
+		string.append("Exercise Name" + getName() + " ");
+		string.append(printSets());
+		return string;
 	}
 	
 }

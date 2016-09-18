@@ -13,12 +13,15 @@ public class Main {
 			*/
 		
 		
-		Exercise bench = new Exercise();
+	/*	Exercise bench = new Exercise();
 		bench.addSet(8, 145);
 		bench.addSet(7, 144);
 		bench.setName("Bench");
 		System.out.println(bench.toString());
-		bench.printSets();
+		bench.printSets();*/
+		
+		WorkoutCommandLine c = new WorkoutCommandLine();
+		c.commandLoop();
 		}
 		
 }

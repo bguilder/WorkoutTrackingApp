@@ -1,6 +1,7 @@
 package health;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class WorkoutController {
@@ -14,17 +15,24 @@ public class WorkoutController {
 		 workoutList.put(id, exercise);
 	}
 	
-	public void addExercise(String name){
+	public int addExercise(String name){
 		int id = exerciseID.generateID();
 		 Exercise exercise = new Exercise(name,id);
 		 workoutList.put(id, exercise);
+		 return id;
 	}
 	
 	public void addSet(int reps, int weight, int exerciseID){
-		workoutList.get(exerciseID);
+		workoutList.get(exerciseID).addSet(reps, weight);
+		
 	}
 	public Exercise getExercise(int exerciseID){
 		Exercise red = workoutList.get(exerciseID);
 		return red;
+	}
+	public void printList(){
+		for (Exercise exercise : workoutList.values()) {
+		    System.out.println(exercise.printExercise());
+		}
 	}
 }
