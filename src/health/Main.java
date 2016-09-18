@@ -2,7 +2,7 @@ package health;
 
 public class Main {
 	
-	public static void main( String args[] ) {
+	public static void main( String args[] ) throws Exception {
 	  
 	/*	Database bob = new Database();
 		 try {
@@ -20,8 +20,12 @@ public class Main {
 		System.out.println(bench.toString());
 		bench.printSets();*/
 		
+		Database database = new Database();
+		
+		database.createTable();
+		database.insertData(1,"Bench", 4, 3, 2);
 		WorkoutCommandLine c = new WorkoutCommandLine();
-		c.commandLoop();
+		//c.commandLoop();
 		}
 		
 }
