@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 public class WorkoutController {
 	
+	Database database = new Database();
 	WorkoutNumberGenerator exerciseID = new WorkoutNumberGenerator();
 	HashMap<Integer,Exercise> workoutList = new HashMap<Integer, Exercise>();
 	
@@ -35,4 +36,11 @@ public class WorkoutController {
 		    System.out.println(exercise.printExercise());
 		}
 	}
+	public void addExerciseToDB(int exerciseID, String exerciseName, int reps, int weight) throws Exception{
+		database.insertData(exerciseID, exerciseName, reps, weight);
+	}
+	public void createTable(){
+		database.createTable();
+	}
+	
 }

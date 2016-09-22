@@ -20,11 +20,14 @@ public class Main {
 		System.out.println(bench.toString());
 		bench.printSets();*/
 		
-		Database database = new Database();
-		
-		database.createTable();
-		database.insertData(1,"Bench", 4, 3, 2);
-		WorkoutCommandLine c = new WorkoutCommandLine();
+		//Database database = new Database();
+		//
+		//database.createTable();
+		//database.insertData(1,"Bench", 4, 3, 2);
+		//WorkoutCommandLine c = new WorkoutCommandLine();
+		WorkoutController controller = new WorkoutController();
+		controller.createTable();
+		controller.addExerciseToDB(4, "Bench", 7, 135);
 		//c.commandLoop();
 		}
 		
