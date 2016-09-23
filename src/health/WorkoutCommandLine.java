@@ -20,7 +20,7 @@ public class WorkoutCommandLine extends JFrame {
 	private JPanel controlPanel;
 	
 	public void prepareGUI(){
-	      mainFrame = new JFrame("BGuildz Workout App");
+	      mainFrame = new JFrame("Brian's Workout App");
 	      mainFrame.setSize(400,400);
 	      mainFrame.setLayout(new GridLayout(3, 1));
 	      mainFrame.addWindowListener(new WindowAdapter() {
@@ -78,22 +78,13 @@ public class WorkoutCommandLine extends JFrame {
 	   }
 
 	
-	public void commandLoop(){
+	/*public void commandLoop(){
 		
 		prepareGUI();
 		
 	while(exitProgram == false){
 		
-		
-	/*    JButton addExercise = new JButton("Add Exercise");  
-	    addExercise.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent e) {
-	           addExercise();
-	         }          
-	      });*/
-
-		String str1 = JOptionPane.showInputDialog("1. Add Exercises\n" + "2. View current exercises\n" + "3. Add List to Database");
-		int userChoice = Integer.parseInt(str1);
+		showButtonDemo();
 		if(userChoice==1){
 			addExercise();
 		}
@@ -105,7 +96,7 @@ public class WorkoutCommandLine extends JFrame {
 		}
 			
 		}//ends exitProgram while loop
-	}//ends method comomandLoop
+	}//ends method comomandLoop*/
 
 	
 	public void addExercise(){
@@ -119,19 +110,19 @@ public class WorkoutCommandLine extends JFrame {
 		String date = getDate();
 		
 		//get the exercise name
-		System.out.println("What was the name of the exercise?");										
-		String exerciseName = scanner.next();
+		String exerciseName = JOptionPane.showInputDialog("What was the name of the exercise?");
 		
 		//how many sets for this particular exercise
-		System.out.println("How many sets?");
-		int sets = scanner.nextInt();
+		String temp1 = JOptionPane.showInputDialog("How many sets?");
+		int sets = Integer.parseInt(temp1);
 			
 		//start for loop for sets
 		for(int n=0; n < sets; n++){			
-		System.out.println("Weight: ");
-		int weight = scanner.nextInt();
-		System.out.println("Reps: ");
-		int reps = scanner.nextInt();
+		String temp2 = JOptionPane.showInputDialog("Weight?");
+		int weight = Integer.parseInt(temp2);
+		
+		String temp3 = JOptionPane.showInputDialog("Reps?");
+		int reps = Integer.parseInt(temp3);
 		//create a unique workoutID and workout object for this set
 		int workoutID = controller.createExercise(exerciseName);
 		controller.addExerciseInfo(workoutID, date, reps, weight);
