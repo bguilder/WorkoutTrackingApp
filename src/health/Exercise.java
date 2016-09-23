@@ -55,7 +55,7 @@ public class Exercise {
 
 	@Override
 	public String toString() {
-		return "Exercise ID: " + exerciseID + " Date: " + date + " Name: " + name + " Reps: " + reps + " Weight: " + weight;
+		return "Exercise ID: " + exerciseID + " | Date: " + date + " | Name: " + name.toUpperCase() + " | Reps: " + reps + " | Weight: " + weight;
 	}
 	
 	

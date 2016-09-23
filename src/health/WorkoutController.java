@@ -2,7 +2,6 @@ package health;
 
 import java.util.HashMap;
 
-
 public class WorkoutController {
 	
 	private Database database = new Database();
@@ -28,17 +27,27 @@ public class WorkoutController {
 		    System.out.println(exercise.toString());
 		}
 	}
+	
+	public String listToString(){
+		StringBuilder string = new StringBuilder();
+		for (Exercise exercise : workoutList.values()) {
+		    string.append(exercise.toString() + "\n");
+		}
+		
+		return string.toString();
+	}
 
-	public void toDatabase(){
+	public void toDatabase(String tableName){
 		for(Exercise exercise : workoutList.values()){
-			database.insertData(exercise.getExerciseID(), exercise.getDate(), exercise.getName(), exercise.getReps(), exercise.getWeight());
+			database.insertData(exercise.getExerciseID(), exercise.getDate(), exercise.getName(), exercise.getReps(), exercise.getWeight(), tableName);
 		}
 	}
-	public void addExerciseToDB(int exerciseID, String date, String exerciseName, int reps, int weight) throws Exception{
-		database.insertData(exerciseID, date, exerciseName, reps, weight);
-	}
-	public void createTable(){
-		database.createTable();
+	/*public void addExerciseToDB(int exerciseID, String date, String exerciseName, int reps, int weight, String tableName) throws Exception{
+		database.insertData(exerciseID, date, exerciseName, reps, weight, tableName);
+	}*/
+	public void createTable(String table){
+		String tableName = table;
+		database.createTable(tableName);
 	}
 	public void setLastUsedID(int lastUsedID){
 		numGenerator.setLastIDUsed(lastUsedID);

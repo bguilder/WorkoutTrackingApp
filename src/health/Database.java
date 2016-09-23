@@ -9,14 +9,15 @@ import java.sql.Statement;
 public class Database {
 
     
-  public void createTable(){
+  public void createTable(String tableName){
 
+	  	String table = tableName;
 	    Connection connection = null;
 	    Statement stmt = null;
 	    
 		    try {
 		      Class.forName("org.sqlite.JDBC");
-		      connection = DriverManager.getConnection("jdbc:sqlite:workout.db");  
+		      connection = DriverManager.getConnection("jdbc:sqlite:" + table + ".db");  
 		      System.out.println("Opened database successfully");
 		
 		      stmt = connection.createStatement();
@@ -38,14 +39,14 @@ public class Database {
 		    
   }
       
-      public void insertData(int id, String date, String name, int reps, int weight) {
+      public void insertData(int id, String date, String name, int reps, int weight, String tableName) {
     	  
     	    Connection connection = null;
     	    
     	    
     	  try {
     	      Class.forName("org.sqlite.JDBC");
-    	      connection = DriverManager.getConnection("jdbc:sqlite:workout.db");
+    	      connection = DriverManager.getConnection("jdbc:sqlite:" + tableName + ".db");
     	      connection.setAutoCommit(false);
     	      System.out.println("Opened database successfully");
     	      	  

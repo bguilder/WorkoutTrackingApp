@@ -48,7 +48,8 @@ public class WorkoutCommandLine extends JFrame {
 
 
 	      JButton addExercise = new JButton("Add Exercise");        
-	      JButton printList = new JButton("Print List");
+	      JButton printList = new JButton("View List");
+	    //  JButton createTable = new JButton("Create Table");
 	      JButton toDatabase = new JButton("Add to Database");
 	     // cancelButton.setHorizontalTextPosition(SwingConstants.LEFT);   
 
@@ -60,20 +61,28 @@ public class WorkoutCommandLine extends JFrame {
 
 	      printList.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	            controller.printList();
+	            JOptionPane.showMessageDialog(mainFrame, controller.listToString());
 	         }
 	      });
 
 	      toDatabase.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	            controller.toDatabase();
+	            //controller.toDatabase();
+	        	 toDatabase();
 	         }
 	      });
 
+	   /*   createTable.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+			     controller.createTable();
+		      }
+	      });*/
+	      
 	      controlPanel.add(addExercise);
 	      controlPanel.add(printList);
 	      controlPanel.add(toDatabase);       
-
+	    //  controlPanel.add(createTable);
+	      
 	      mainFrame.setVisible(true);  
 	   }
 
@@ -101,10 +110,6 @@ public class WorkoutCommandLine extends JFrame {
 	
 	public void addExercise(){
 		
-		//get the last exerciseID from the database
-		String id = JOptionPane.showInputDialog("Enter the last exerciseID from the database");
-		int lastUsedID = Integer.parseInt(id);
-		controller.setLastUsedID(lastUsedID);
 		
 		//get the date of the exercise		
 		String date = getDate();
@@ -117,11 +122,11 @@ public class WorkoutCommandLine extends JFrame {
 		int sets = Integer.parseInt(temp1);
 			
 		//start for loop for sets
-		for(int n=0; n < sets; n++){			
-		String temp2 = JOptionPane.showInputDialog("Weight?");
+		for(int n=1; n <= sets; n++){			
+		String temp2 = JOptionPane.showInputDialog("Weight for set #" + n);
 		int weight = Integer.parseInt(temp2);
 		
-		String temp3 = JOptionPane.showInputDialog("Reps?");
+		String temp3 = JOptionPane.showInputDialog("Reps for set #" + n);
 		int reps = Integer.parseInt(temp3);
 		//create a unique workoutID and workout object for this set
 		int workoutID = controller.createExercise(exerciseName);
@@ -152,6 +157,19 @@ public class WorkoutCommandLine extends JFrame {
 		}	
 	}
 	
+	public void toDatabase(){
+		String userResponse = JOptionPane.showInputDialog("Do you already have a database? (y/n)");
+
+		if(userResponse.equalsIgnoreCase("y")){
+			String tableName = JOptionPane.showInputDialog("Enter your table name(minus .db): ");
+			controller.toDatabase(tableName);
+		}
+		else if(userResponse.equalsIgnoreCase("n")){
+		String tableName = JOptionPane.showInputDialog("Enter a name for your table:");
+			controller.createTable(tableName);
+			controller.toDatabase(tableName);
+		}
+	}
 	
 	
 }//end class
