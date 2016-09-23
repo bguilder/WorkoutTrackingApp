@@ -5,23 +5,95 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
 
 
-public class WorkoutCommandLine {
+public class WorkoutCommandLine extends JFrame {
 	private static Scanner scanner = new Scanner(System.in);
 	private static boolean exitProgram = false;
 	private static WorkoutController controller = new WorkoutController();
+		
+	private JFrame mainFrame;
+	private JLabel headerLabel;
+	private JLabel statusLabel;
+	private JPanel controlPanel;
 	
+	public void prepareGUI(){
+	      mainFrame = new JFrame("BGuildz Workout App");
+	      mainFrame.setSize(400,400);
+	      mainFrame.setLayout(new GridLayout(3, 1));
+	      mainFrame.addWindowListener(new WindowAdapter() {
+	         public void windowClosing(WindowEvent windowEvent){
+	            System.exit(0);
+	         }        
+	      });    
+	      headerLabel = new JLabel("", JLabel.CENTER);        
+	      statusLabel = new JLabel("",JLabel.CENTER);    
+
+	      statusLabel.setSize(350,100);
+
+	      controlPanel = new JPanel();
+	      controlPanel.setLayout(new FlowLayout());
+
+	      mainFrame.add(headerLabel);
+	      mainFrame.add(controlPanel);
+	      mainFrame.add(statusLabel);
+	      mainFrame.setVisible(true);  
+	   }
+	public void showButtonDemo(){
+
+		  prepareGUI();
+	      headerLabel.setText("Main Menu"); 
+
+
+	      JButton addExercise = new JButton("Add Exercise");        
+	      JButton printList = new JButton("Print List");
+	      JButton toDatabase = new JButton("Add to Database");
+	     // cancelButton.setHorizontalTextPosition(SwingConstants.LEFT);   
+
+	      addExercise.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	            addExercise();
+	         }          
+	      });
+
+	      printList.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	            controller.printList();
+	         }
+	      });
+
+	      toDatabase.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	            controller.toDatabase();
+	         }
+	      });
+
+	      controlPanel.add(addExercise);
+	      controlPanel.add(printList);
+	      controlPanel.add(toDatabase);       
+
+	      mainFrame.setVisible(true);  
+	   }
+
 	
 	public void commandLoop(){
 		
+		prepareGUI();
+		
 	while(exitProgram == false){
 		
-			
-		System.out.println("1. Add Exercises");
-		System.out.println("2. View current exercises");
-		System.out.println("3. Add List to Database");
-		int userChoice = scanner.nextInt();
+		
+	/*    JButton addExercise = new JButton("Add Exercise");  
+	    addExercise.addActionListener(new ActionListener() {
+	         public void actionPerformed(ActionEvent e) {
+	           addExercise();
+	         }          
+	      });*/
+
+		String str1 = JOptionPane.showInputDialog("1. Add Exercises\n" + "2. View current exercises\n" + "3. Add List to Database");
+		int userChoice = Integer.parseInt(str1);
 		if(userChoice==1){
 			addExercise();
 		}
@@ -39,8 +111,8 @@ public class WorkoutCommandLine {
 	public void addExercise(){
 		
 		//get the last exerciseID from the database
-		System.out.println("Enter the last exerciseID from the database");
-		int lastUsedID = scanner.nextInt();
+		String id = JOptionPane.showInputDialog("Enter the last exerciseID from the database");
+		int lastUsedID = Integer.parseInt(id);
 		controller.setLastUsedID(lastUsedID);
 		
 		//get the date of the exercise		
@@ -73,16 +145,14 @@ public class WorkoutCommandLine {
 		DateFormat date = new SimpleDateFormat("MM-dd-yyyy");
 	    Date today = new Date();
 		
-		System.out.print("Was the workout today?(y/n)");
-		userResponse = scanner.next();
+		userResponse = JOptionPane.showInputDialog("Was the workout today?(y/n)");
 		
 		if(userResponse.equalsIgnoreCase("y")){
     	    userResponse = date.format(today);
     	    return userResponse;
 		}
 		else if(userResponse.equalsIgnoreCase("n")){
-			System.out.print("Enter the date: (MM-dd-yyyy)");
-			userResponse = scanner.next();
+			userResponse = JOptionPane.showInputDialog("Enter the date: (MM-dd-yyyy)");
 			return userResponse;
 		}
 		else{
