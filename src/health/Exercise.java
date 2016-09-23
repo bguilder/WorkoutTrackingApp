@@ -1,37 +1,26 @@
 package health;
 
-import java.util.LinkedList;
-
 public class Exercise {
 
-	String name;
-	int reps;
-	int weight;
-	int exerciseID;
-	Integer[]set = new Integer[2];//store each set in an array
-	LinkedList<Integer[]> totalSets = new LinkedList<Integer[]>(); //ArrayList of the total sets with reps and weight
-
+	private String name;
+	private int reps;
+	private int weight;
+	private int exerciseID;
+	private String date;
+	
 	public Exercise(){	
 	}
 	
-	public Exercise(String name, Integer[] set, int exerciseNum) {
+	public Exercise(int exerciseID, String name, int reps, int weight) {
 		this.name = name;
-		this.set = set;
-	}
-	public Exercise(String name, LinkedList<Integer[]> totalSets){
-		this.name = name;
-		this.totalSets = totalSets;		
-	}
-	public Exercise(String name, int exerciseNum){
-		this.name = name;
-		this.exerciseID = exerciseNum;
+		this.reps = reps;
+		this.weight = weight;
+		this.exerciseID = exerciseID;
 	}
 	
-	public void addSet(int reps, int weight){
-		Integer[]s1 = new Integer[2];
-		s1[0]=reps;
-		s1[1]=weight;
-		totalSets.add(s1);
+	public Exercise(int exerciseID, String name){
+		this.name = name;
+		this.exerciseID = exerciseID;
 	}
 
 	public String getName() {
@@ -52,32 +41,22 @@ public class Exercise {
 	public void setReps(int reps) {
 		this.reps = reps;
 	}
-	
-	public StringBuilder printSets(){
-		//array to store each set in
-		Integer[]x = new Integer[2];
-		StringBuilder string = new StringBuilder();
-		//get each set[]
-		for(int n=0; n<totalSets.size(); n++){
-			x = totalSets.get(n);	
-			//print out the set array
-			for(int i=0;i<x.length;i++){
-				if(i==0){
-					string.append("Reps: " + x[i] + " ");
-				}
-				else if(i==1){
-					string.append("Weight: " + x[i] + " ");
-				}			
-			}		
-		}
-	return string;
+	public int getExerciseID(){
+		return exerciseID;
 	}
 
-	public StringBuilder printExercise(){
-		StringBuilder string = new StringBuilder();
-		string.append("Exercise Name" + getName() + " ");
-		string.append(printSets());
-		return string;
+	public String getDate() {
+		return date;
 	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Exercise ID: " + exerciseID + " Date: " + date + " Name: " + name + " Reps: " + reps + " Weight: " + weight;
+	}
+	
 	
 }

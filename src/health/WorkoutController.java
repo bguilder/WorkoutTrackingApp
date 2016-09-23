@@ -1,46 +1,46 @@
 package health;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 
 public class WorkoutController {
 	
-	Database database = new Database();
-	WorkoutNumberGenerator exerciseID = new WorkoutNumberGenerator();
-	HashMap<Integer,Exercise> workoutList = new HashMap<Integer, Exercise>();
+	private Database database = new Database();
+	private WorkoutNumberGenerator numGenerator = new WorkoutNumberGenerator();
+	private HashMap<Integer,Exercise> workoutList = new HashMap<Integer, Exercise>();
 	
-	public void addExercise(String name, Integer[] sets){	
-		 int id = exerciseID.generateID();
-		 Exercise exercise = new Exercise(name,sets,id);
-		 workoutList.put(id, exercise);
+	public void addExerciseInfo(int exerciseID, String date, int reps, int weight){	
+	   workoutList.get(exerciseID).setReps(reps);
+	   workoutList.get(exerciseID).setWeight(weight);
+	   workoutList.get(exerciseID).setDate(date);
+
 	}
 	
-	public int addExercise(String name){
-		int id = exerciseID.generateID();
-		 Exercise exercise = new Exercise(name,id);
+	public int createExercise(String name){
+		int id = numGenerator.generateID();
+		 Exercise exercise = new Exercise(id,name);
 		 workoutList.put(id, exercise);
 		 return id;
 	}
 	
-	public void addSet(int reps, int weight, int exerciseID){
-		workoutList.get(exerciseID).addSet(reps, weight);
-		
-	}
-	public Exercise getExercise(int exerciseID){
-		Exercise red = workoutList.get(exerciseID);
-		return red;
-	}
 	public void printList(){
 		for (Exercise exercise : workoutList.values()) {
-		    System.out.println(exercise.printExercise());
+		    System.out.println(exercise.toString());
 		}
 	}
-	public void addExerciseToDB(int exerciseID, String exerciseName, int reps, int weight) throws Exception{
-		database.insertData(exerciseID, exerciseName, reps, weight);
+
+	public void toDatabase(){
+		for(Exercise exercise : workoutList.values()){
+			database.insertData(exercise.getExerciseID(), exercise.getDate(), exercise.getName(), exercise.getReps(), exercise.getWeight());
+		}
+	}
+	public void addExerciseToDB(int exerciseID, String date, String exerciseName, int reps, int weight) throws Exception{
+		database.insertData(exerciseID, date, exerciseName, reps, weight);
 	}
 	public void createTable(){
 		database.createTable();
 	}
-	
+	public void setLastUsedID(int lastUsedID){
+		numGenerator.setLastIDUsed(lastUsedID);
+	}
 }

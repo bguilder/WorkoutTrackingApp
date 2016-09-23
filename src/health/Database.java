@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
+
 public class Database {
 
     
@@ -21,6 +22,7 @@ public class Database {
 		      stmt = connection.createStatement();
 		      String sql = "CREATE TABLE WORKOUT " +
 		                   "(ID INT PRIMARY KEY     NOT NULL," +
+		                   " DATE 			 INT	NOT NULL,"+	
 		                   " NAME           TEXT    NOT NULL, " + 
 		                   " REPS        	 INT     NOT NULL, " + 
 		                   " WEIGHT          INT     NOT NULL )"; 
@@ -36,9 +38,10 @@ public class Database {
 		    
   }
       
-      public void insertData(int id, String name, int reps, int weight) {
+      public void insertData(int id, String date, String name, int reps, int weight) {
     	  
     	    Connection connection = null;
+    	    
     	    
     	  try {
     	      Class.forName("org.sqlite.JDBC");
@@ -47,12 +50,14 @@ public class Database {
     	      System.out.println("Opened database successfully");
     	      	  
             PreparedStatement statement = connection.prepareStatement(
-              "INSERT INTO WORKOUT (ID,NAME,REPS,WEIGHT)" +
-    		  "VALUES(?,?,?,?)");
+              "INSERT INTO WORKOUT (ID,DATE,NAME,REPS,WEIGHT)" +
+    		  "VALUES(?,?,?,?,?)");
+            
           statement.setLong(1,id);
-          statement.setString(2,name);
-          statement.setLong(3, reps);
-          statement.setLong(4, weight);
+          statement.setString(2, date);
+          statement.setString(3,name);
+          statement.setLong(4, reps);
+          statement.setLong(5, weight);
           statement.executeUpdate();
 
           connection.commit();
@@ -67,12 +72,4 @@ public class Database {
     System.out.println("Records created successfully");
     
   }
-      
-  /*    public void updateData()throws Exception{
-    	  stmt = connection.createStatement();
-          String sql = "UPDATE WORKOUT set NAME = 'squat' where ID=1;";
-          stmt.executeUpdate(sql);
-          connection.commit();
-    	  
-      }*/
 }
