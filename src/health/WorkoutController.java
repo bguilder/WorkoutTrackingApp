@@ -42,9 +42,7 @@ public class WorkoutController {
 			database.insertData(exercise.getExerciseID(), exercise.getDate(), exercise.getName(), exercise.getReps(), exercise.getWeight(), tableName);
 		}
 	}
-	/*public void addExerciseToDB(int exerciseID, String date, String exerciseName, int reps, int weight, String tableName) throws Exception{
-		database.insertData(exerciseID, date, exerciseName, reps, weight, tableName);
-	}*/
+
 	public void createTable(String table){
 		String tableName = table;
 		database.createTable(tableName);

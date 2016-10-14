@@ -49,9 +49,7 @@ public class WorkoutCommandLine extends JFrame {
 
 	      JButton addExercise = new JButton("Add Exercise");        
 	      JButton printList = new JButton("View List");
-	    //  JButton createTable = new JButton("Create Table");
 	      JButton toDatabase = new JButton("Add to Database");
-	     // cancelButton.setHorizontalTextPosition(SwingConstants.LEFT);   
 
 	      addExercise.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
@@ -67,45 +65,18 @@ public class WorkoutCommandLine extends JFrame {
 
 	      toDatabase.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	            //controller.toDatabase();
 	        	 toDatabase();
 	         }
 	      });
 
-	   /*   createTable.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent e) {
-			     controller.createTable();
-		      }
-	      });*/
+
 	      
 	      controlPanel.add(addExercise);
 	      controlPanel.add(printList);
 	      controlPanel.add(toDatabase);       
-	    //  controlPanel.add(createTable);
 	      
 	      mainFrame.setVisible(true);  
 	   }
-
-	
-	/*public void commandLoop(){
-		
-		prepareGUI();
-		
-	while(exitProgram == false){
-		
-		showButtonDemo();
-		if(userChoice==1){
-			addExercise();
-		}
-		else if(userChoice==2){
-			controller.printList();
-		}
-		else if(userChoice==3){
-			controller.toDatabase();
-		}
-			
-		}//ends exitProgram while loop
-	}//ends method comomandLoop*/
 
 	
 	public void addExercise(){
@@ -158,7 +129,7 @@ public class WorkoutCommandLine extends JFrame {
 	}
 	
 	public void toDatabase(){
-		String userResponse = JOptionPane.showInputDialog("Do you already have a database? (y/n)");
+		String userResponse = JOptionPane.showInputDialog("Are you a new user? (y/n)");
 
 		if(userResponse.equalsIgnoreCase("y")){
 			String tableName = JOptionPane.showInputDialog("Enter your table name(minus .db): ");

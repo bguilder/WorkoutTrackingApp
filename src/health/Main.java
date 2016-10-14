@@ -6,7 +6,6 @@ public class Main {
 		
 		WorkoutCommandLine commandLine = new WorkoutCommandLine();
 		
-		//commandLine.prepareGUI();
 		commandLine.showButtonDemo();
 		}		
 }
